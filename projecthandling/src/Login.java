@@ -4,24 +4,21 @@ import javax.servlet.http.*;
 import java.sql.*;
 
 public class Login extends HttpServlet {
+	String username;
+	String password;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		String username = request.getParameter("un");
-		String password = request.getParameter("psw");
-		
-		if(Validate.checkUser(un, psw))
-		{
+		username = request.getParameter("username");
+		password = request.getParameter("password");
+		if(Validate.checkUser(username, password)) {
 			RequestDispatcher rs = request.getRequestDispatcher("Welcome");
 			rs.forward(request, response);
 		}
-		else
-		{
+		else {
 		out.println("Username or Password incorrect");
-		RequestDispatcher rs = request.getRequestDispatcher("Main.html");
+		RequestDispatcher rs = request.getRequestDispatcher("fail.html");
 		rs.include(request, response);
 		}
 	}
